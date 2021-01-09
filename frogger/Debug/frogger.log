@@ -1,2 +1,11 @@
 ﻿  frogger.cpp
+C:\Users\lenovo\Desktop\works\Game\frogger\frogger\frogger.cpp(19,49): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
+          with
+          [
+              T=unsigned int
+          ]
+          and
+          [
+              T=float
+          ]
   frogger.vcxproj -> C:\Users\lenovo\Desktop\works\Game\frogger\frogger\Debug\frogger.exe
