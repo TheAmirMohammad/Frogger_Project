@@ -23,7 +23,8 @@ bool Car::Update(sf::RenderWindow& window, float DeltaTime,Frog* FrogObj) {
 	{
 		FrogObj->Reset();
 	}
-	if (CarSprite.getPosition().x > window.getSize().x + 2*Game_Cell_Size|| CarSprite.getPosition().x < -2*Game_Cell_Size)
+
+	if (CarSprite.getPosition().x > window.getSize().x + 3*Game_Cell_Size|| CarSprite.getPosition().x < -3*Game_Cell_Size)
 	{ 
 		return true;
 	}

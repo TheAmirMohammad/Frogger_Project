@@ -1,5 +1,29 @@
 #include "Frog.hpp"
 #include <iostream>
+#include <SFML/Graphics.hpp>
+
+int Frog::getLane()
+{
+	return FrogSprite.getPosition().y / Game_Cell_Size;
+}
+
+bool Frog::isMoving()
+{
+	static bool n = true;
+	static sf::Vector2f pos1;
+	if(n) pos1 = FrogSprite.getPosition();
+	n = false;
+
+	sf::Vector2f pos2 = FrogSprite.getPosition();
+	
+	if (pos1 == pos2)
+		return false;
+	else
+	{
+		pos1 = pos2;
+		return true;
+	}
+}
 
 Frog::Frog(std::string path, sf::Vector2f position)
 {
@@ -23,7 +47,7 @@ void Frog::HandleFrogMovement(sf::RenderWindow& GameWindow)
 	{
 		switch (EventListener.type)
 		{
-		case sf::Event::KeyReleased:
+			case sf::Event::KeyReleased:
 			switch (EventListener.key.code)
 			{
 			case sf::Keyboard::Up:
