@@ -23,7 +23,7 @@ public:
 	int GetCarSpeed();
 	int GetCarWidth();
 	int GetCarLane();
-	void Reset();
+	void Reset();  
 
 private:
 
