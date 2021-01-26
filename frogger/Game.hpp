@@ -8,6 +8,7 @@
 #include "Window.hpp"
 #include "Frog.hpp"
 #include "Car.hpp"
+#include "Log.hpp"
 
 class Game {
 public:
@@ -20,6 +21,9 @@ public:
 	void MoveFrog();
 private:
 
+	sf::Sprite StreetPathSprite;
+	sf::Texture StreetPathTexture;
+
 	sf::Sprite FootPathSprite;
 	sf::Texture FootPathTexture;
 
@@ -31,11 +35,16 @@ private:
 
 	Window GameWindow;
 	std::vector<Car*> CarsSet;
+	std::vector<Log*> LogsSet;
 	Frog* FrogObject;
+	//car
 	int CarsSpeedSet[Car_Lanes_Number];
 	std::string CarsLaneNameSet[Car_Lanes_Number];
-	int LaneRandDistance[Car_Lanes_Number];
-
+	int CarsLaneRandDistance[Car_Lanes_Number];
+	//log
+	int LogsSpeedSet[Log_Lanes_Number];
+	std::string LogsLaneNameSet[Log_Lanes_Number];
+	int LogsLaneRandDistance[Log_Lanes_Number];
 
 	int TempXDistance = Game_Cell_Size;
 	float WindowWidth = 0;
@@ -46,8 +55,10 @@ private:
 	float DeltaTime = 0;
 	float y = 25.0f;
 	int CarsNumber = 0;
+	int LogsNumber = 0;
 	int XDistance = 0;
 	int XExCar = 0;
+	int XExLog = 0;
 
 	sf::Music music;
 };

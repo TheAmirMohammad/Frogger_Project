@@ -1,8 +1,19 @@
 #include "Game.hpp"
+#include "SFML/Graphics.hpp"
+
+sf::RectangleShape water;
 
 Game::Game():GameWindow(Width_Game_Window, Height_Game_Window, Title_Game_Window) {
 
-	//srand(time(NULL));
+	srand(time(NULL));
+	sf::Color waterColor =sf::Color::Color(0 , 134 , 163);
+	water.setSize(sf::Vector2f(Width_Game_Window, 5.5 * Game_Cell_Size));
+	water.setPosition(0, 0);
+	water.setFillColor(waterColor);
+
+	StreetPathTexture.loadFromFile(StreetBackground_File_Path);
+	StreetPathSprite.setTexture(StreetPathTexture);
+	StreetPathSprite.setPosition(WindowWidth / 2 , Height_Game_Window - 6*Game_Cell_Size );
 
 	FootPathTexture.loadFromFile(FootPathBackground_File_Path);
 	FootPathSprite.setTexture(FootPathTexture);
@@ -20,18 +31,40 @@ Game::Game():GameWindow(Width_Game_Window, Height_Game_Window, Title_Game_Window
 	WindowHeight = GameWindow.WindowSizeY();
 
 	FrogObject = new Frog(Frog_File_Path, sf::Vector2f(WindowWidth/2, WindowHeight - Game_Cell_Size/2));
+	
+	//log speed
+	LogsSpeedSet[0] = Log_Lane_1_Speed;
+	LogsSpeedSet[1] = Log_Lane_2_Speed;
+	LogsSpeedSet[2] = Log_Lane_3_Speed;
+	LogsSpeedSet[3] = Log_Lane_4_Speed;
+	//log lane
+	LogsLaneNameSet[0] = Log_Lane_1_LogFilePath;
+	LogsLaneNameSet[1] = Log_Lane_2_LogFilePath;
+	LogsLaneNameSet[2] = Log_Lane_3_LogFilePath;
+	LogsLaneNameSet[3] = Log_Lane_4_LogFilePath;
 
+	//car speed
 	CarsSpeedSet[0] = Car_Lane_1_Speed;
 	CarsSpeedSet[1] = Car_Lane_2_Speed;
 	CarsSpeedSet[2] = Car_Lane_3_Speed;
 	CarsSpeedSet[3] = Car_Lane_4_Speed;
 	CarsSpeedSet[4] = Car_Lane_5_Speed;
-
+	//car lane
 	CarsLaneNameSet[0] = Car_Lane_1_CarFilePath;
 	CarsLaneNameSet[1] = Car_Lane_2_CarFilePath;
 	CarsLaneNameSet[2] = Car_Lane_3_CarFilePath;
 	CarsLaneNameSet[3] = Car_Lane_4_CarFilePath;
 	CarsLaneNameSet[4] = Car_Lane_5_CarFilePath;
+
+	for (int i = 0; i < Log_Lanes_Number; i++)
+	{
+		TempXDistance = Game_Cell_Size*1.5;
+		for (int j = 0; j < Log_Lane_LogsNumber; j++)
+		{
+			LogsSet.emplace_back(new Log(LogsLaneNameSet[i], sf::Vector2f(TempXDistance + (WindowWidth / Log_Lane_LogsNumber), WindowHeight - (i + 8) * Game_Cell_Size), LogsSpeedSet[i], i));
+			TempXDistance += 1.2*(WindowWidth / Log_Lane_LogsNumber);
+		}
+	}
 
 	for (int i = 0; i < Car_Lanes_Number; i++)
 	{
@@ -46,6 +79,20 @@ Game::Game():GameWindow(Width_Game_Window, Height_Game_Window, Title_Game_Window
 
 void Game::Update() {
 	GameWindow.Update();
+	for (int i = 0; i < LogsSet.size(); i++)
+	{
+		if (LogsSet[i]->Update(GameWindow.MainWindow, DeltaTime, FrogObject )) {
+			if (LogsSet[i]->GetLogSpeed() > 0)
+			{
+				LogsSet.emplace_back(new Log(LogsSet[i]->GetTexturePath(), sf::Vector2f(-LogsSet[i]->GetLogWidth(), LogsSet[i]->GetLogPositionY()), LogsSet[i]->GetLogSpeed(), LogsSet[i]->GetLogLane()));
+			}
+			else
+			{
+				LogsSet.emplace_back(new Log(LogsSet[i]->GetTexturePath(), sf::Vector2f(Width_Game_Window, LogsSet[i]->GetLogPositionY()), LogsSet[i]->GetLogSpeed(), LogsSet[i]->GetLogLane()));
+			}
+			LogsSet.erase(LogsSet.begin() + i);
+		}
+	}
 	for (int i = 0; i < CarsSet.size(); i++)
 	{
 		if (CarsSet[i]->Update(GameWindow.MainWindow, DeltaTime, FrogObject)) {
@@ -68,14 +115,20 @@ void Game::LateUpdate() {
 
 void Game::Draw() {
 	GameWindow.BeginDraw();
+	GameWindow.Draw(water);
+	GameWindow.Draw(StreetPathSprite);
 	GameWindow.Draw(FootPathSprite);
 	GameWindow.Draw(MiddlePathSprite);
 	GameWindow.Draw(TopPathSprite);
-	GameWindow.Draw(*FrogObject);
+	for (int i = 0; i < LogsSet.size(); i++)
+	{
+		GameWindow.Draw(*LogsSet[i]);
+	}
 	for (int i = 0; i < CarsSet.size() ; i++)
 	{
 		GameWindow.Draw(*CarsSet[i]);
 	}
+	GameWindow.Draw(*FrogObject);
 	GameWindow.EndDraw();
 }
 
@@ -92,77 +145,3 @@ void Game::CalculateDeltaTime()
 void Game::MoveFrog() {
 	FrogObject->HandleFrogMovement(GameWindow.MainWindow);
 }
-
-/*Game::Game(int width, int height, std::string title)
-{
-	srand(time(NULL));
-	game_window = new sf::RenderWindow(sf::VideoMode(width, height), title);
-
-	if (!music.openFromFile("assets/music.ogg"))
-	{
-		std::cout << "assets / music.ogg is not exsist \n";
-	}
-
-	m_frog = new Frog("assets/life.png", sf::Vector2f(m_window->getSize().x / 2, m_window->getSize().y - 50));
-
-
-	m_cars.emplace_back(new Car("assets/car1.png"    ,  sf::Vector2f(m_window->getSize().x / 2, m_window->getSize().y / 2 - 100), 100, 1));
-	m_cars.emplace_back(new Car("assets/car2.png"    ,  sf::Vector2f(m_window->getSize().x / 2, m_window->getSize().y / 2 - 50), 100, 2));
-	m_cars.emplace_back(new Car("assets/tractor.png" ,  sf::Vector2f(m_window->getSize().x / 2, m_window->getSize().y / 2), 50, 1));
-	m_cars.emplace_back(new Car("assets/truck.png"   ,  sf::Vector2f(m_window->getSize().x / 2, m_window->getSize().y / 2 + 50), 75, 2));
-	m_cars.emplace_back(new Car("assets/car1.png"    ,  sf::Vector2f(m_window->getSize().x / 2, m_window->getSize().y / 2 + 100), 100, 1));
-	m_cars.emplace_back(new Car("assets/car3.png"    ,  sf::Vector2f(m_window->getSize().x / 2, m_window->getSize().y / 2 + 150), 100, 2));
-
-	
-}
-
-void Game::run()
-{
-	music.setLoop(true);
-	music.setVolume(20);
-	music.play();
-
-	sf::Clock deltaClock;
-	while (isPlaying)
-	{
-		m_frog->Update(*m_window, deltaTime);
-		for (int i = 0; i < m_cars.size(); i++)
-			m_cars[i]->Update(*m_window, deltaTime);
-
-
-		m_frog->HandleEvent(*m_window);
-
-		m_window->clear();
-
-		m_frog->Draw(*m_window);
-		for (int i = 0; i < m_cars.size(); i++)
-			m_cars[i]->Draw(*m_window);
-
-		m_window->display();
-
-		deltaTime = deltaClock.restart().asSeconds();
-	}
-}
-
-void Game::reset()
-{
-	m_frog->Reset();
-	for (int i = 0; i < m_cars.size(); i++)
-		m_cars[i]->Reset();
-}
-
-Game* Game::instance = nullptr;
-
-void Game::constructor(int width, int height, std::string title)
-{
-	instance = new Game(width, height, title);
-	Game::instance->run();
-}
-
-Game* Game::getInstance()
-{
-	if (instance == nullptr)
-		std::cout << "You need to call constructor\n";
-
-	return instance;
-} */
