@@ -14,7 +14,6 @@ class Game {
 public:
 	Game();
 	void Update();
-	void LateUpdate();
 	void Draw();
 	bool IsRunning() const;
 	void CalculateDeltaTime();
@@ -46,6 +45,10 @@ private:
 	std::string LogsLaneNameSet[Log_Lanes_Number];
 	int LogsLaneRandDistance[Log_Lanes_Number];
 
+	sf::SoundBuffer MusicBuffer;
+	sf::Sound MusicSound;
+
+
 	int TempXDistance = Game_Cell_Size;
 	float WindowWidth = 0;
 	float WindowHeight = 0;
@@ -59,6 +62,6 @@ private:
 	int XDistance = 0;
 	int XExCar = 0;
 	int XExLog = 0;
-
-	sf::Music music;
+	
+	friend class Frog;
 };

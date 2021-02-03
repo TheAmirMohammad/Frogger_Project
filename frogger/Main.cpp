@@ -7,7 +7,6 @@ int main()
 	while (game.IsRunning())
 	{
 		game.Update();
-		game.LateUpdate();
 		game.Draw();
 		game.CalculateDeltaTime();
 		game.MoveFrog();

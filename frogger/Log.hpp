@@ -34,6 +34,7 @@ private:
 	int LogSpeed;
 	int LogLane;
 	std::string LogTexturePath;
+	friend class Frog;
 };
 
 #endif /* Log_hpp */

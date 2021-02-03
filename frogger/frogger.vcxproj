@@ -18,6 +18,22 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Car.hpp" />
+    <ClInclude Include="Frog.hpp" />
+    <ClInclude Include="Game.hpp" />
+    <ClInclude Include="GameDefinitions.hpp" />
+    <ClInclude Include="Log.hpp" />
+    <ClInclude Include="Window.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Car.cpp" />
+    <ClCompile Include="Frog.cpp" />
+    <ClCompile Include="Game.cpp" />
+    <ClCompile Include="Log.cpp" />
+    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Window.cpp" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
@@ -150,20 +166,6 @@
       <AdditionalDependencies>sfml-system.lib;sfml-graphics.lib;sfml-audio.lib;sfml-network.lib;sfml-window.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="..\..\..\..\..\..\Programming Projects\Frogger Testing\Frogger Development Test\Car.cpp" />
-    <ClCompile Include="..\..\..\..\..\..\Programming Projects\Frogger Testing\Frogger Development Test\Frog.cpp" />
-    <ClCompile Include="..\..\..\..\..\..\Programming Projects\Frogger Testing\Frogger Development Test\Game.cpp" />
-    <ClCompile Include="..\..\..\..\..\..\Programming Projects\Frogger Testing\Frogger Development Test\Window.cpp" />
-    <ClCompile Include="Main.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\..\..\..\..\..\Programming Projects\Frogger Testing\Frogger Development Test\Car.hpp" />
-    <ClInclude Include="..\..\..\..\..\..\Programming Projects\Frogger Testing\Frogger Development Test\Frog.hpp" />
-    <ClInclude Include="..\..\..\..\..\..\Programming Projects\Frogger Testing\Frogger Development Test\Game.hpp" />
-    <ClInclude Include="..\..\..\..\..\..\Programming Projects\Frogger Testing\Frogger Development Test\GameDefinitions.hpp" />
-    <ClInclude Include="..\..\..\..\..\..\Programming Projects\Frogger Testing\Frogger Development Test\Window.hpp" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

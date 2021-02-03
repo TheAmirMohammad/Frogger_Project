@@ -3,7 +3,7 @@
 #define GameDefinitions_hpp
 
 #define Title_Game_Window "Frogger"
-#define Width_Game_Window 840
+#define Width_Game_Window 780
 #define Height_Game_Window 720
 #define Game_Cell_Size 60
 
@@ -13,6 +13,11 @@
 #define MiddlePathBackground_File_Path "GameAssets/FootPathBackground.png"
 #define TopPathBackground_File_Path "GameAssets/TopPathBackground.png"
 #define StreetBackground_File_Path "GameAssets/StreetBackground.png"
+
+#define Music_File_Path "GameAssets/sound-frogger-music.ogg"
+#define HopSound_File_Path "GameAssets/sound-frogger-hop.ogg"
+#define PlunkSound_File_Path "GameAssets/sound-frogger-plunk.ogg"
+#define SquashkSound_File_Path "GameAssets/sound-frogger-squash.ogg"
 
 #define Log_Lanes_Number 4
 #define Log_Lane_LogsNumber 3

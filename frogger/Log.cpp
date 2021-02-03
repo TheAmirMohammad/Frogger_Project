@@ -28,7 +28,7 @@ bool Log::Update(sf::RenderWindow& window, float DeltaTime, Frog* FrogObj) {
 	{
 		FrogObj->FrogSprite.move(LogSpeed * DeltaTime, 0);
 	}
-	if (FrogObj->getLane() >= 1 && FrogObj->getLane() <= 4)
+	/* if (FrogObj->getLane() >= 1 && FrogObj->getLane() <= 4)
 	{
 		if (FrogObj->isMoving())
 		{
@@ -36,7 +36,7 @@ bool Log::Update(sf::RenderWindow& window, float DeltaTime, Frog* FrogObj) {
 			std::cout << i << " : dead" << std::endl;
 			i++;
 		}
-	}
+	} */
 
 	int x = 4;
 	if (LogSprite.getPosition().x > window.getSize().x + x * Game_Cell_Size || LogSprite.getPosition().x < -x * Game_Cell_Size)

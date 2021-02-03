@@ -1,5 +1,4 @@
 #include "Game.hpp"
-#include "SFML/Graphics.hpp"
 
 sf::RectangleShape water;
 
@@ -61,20 +60,28 @@ Game::Game():GameWindow(Width_Game_Window, Height_Game_Window, Title_Game_Window
 		TempXDistance = Game_Cell_Size*1.5;
 		for (int j = 0; j < Log_Lane_LogsNumber; j++)
 		{
-			LogsSet.emplace_back(new Log(LogsLaneNameSet[i], sf::Vector2f(TempXDistance + (WindowWidth / Log_Lane_LogsNumber), WindowHeight - (i + 8) * Game_Cell_Size), LogsSpeedSet[i], i));
+			LogsSet.emplace_back(new Log(LogsLaneNameSet[i], sf::Vector2f(TempXDistance, WindowHeight - (i + 8) * Game_Cell_Size), LogsSpeedSet[i], i));
 			TempXDistance += 1.2*(WindowWidth / Log_Lane_LogsNumber);
 		}
 	}
 
 	for (int i = 0; i < Car_Lanes_Number; i++)
 	{
-		TempXDistance = Game_Cell_Size;
+		TempXDistance = Game_Cell_Size * 1.5;
 		for (int j = 0; j < Car_Lane_CarsNumber; j++)
 		{
-			CarsSet.emplace_back(new Car(CarsLaneNameSet[i], sf::Vector2f(TempXDistance + (WindowWidth / Car_Lane_CarsNumber), WindowHeight - (i+2) * Game_Cell_Size), CarsSpeedSet[i],i));
+			CarsSet.emplace_back(new Car(CarsLaneNameSet[i], sf::Vector2f(TempXDistance, WindowHeight - (i+2) * Game_Cell_Size), CarsSpeedSet[i],i));
 			TempXDistance += (WindowWidth / Car_Lane_CarsNumber);
 		}
 	}
+
+	if (!MusicBuffer.loadFromFile(Music_File_Path))
+	{
+		std::cout << "ERROR sound-frogger-music NOT FOUND!" << std::endl;
+	}
+	MusicSound.setBuffer(MusicBuffer);
+	MusicSound.setLoop(true);
+	MusicSound.play();
 }
 
 void Game::Update() {
@@ -107,10 +114,17 @@ void Game::Update() {
 			CarsSet.erase(CarsSet.begin() + i);
 		}
 	}
-}
-
-void Game::LateUpdate() {
-
+	if (FrogObject->getLane() >= 1 && FrogObject->getLane() <= 4)
+	{
+		if (FrogObject->logcollision(LogsSet) == false)
+		{
+			FrogObject->Reset();
+		}
+	}
+	if (FrogObject->FrogSprite.getPosition().x > WindowWidth || FrogObject->FrogSprite.getPosition().x < 0 || FrogObject->FrogSprite.getPosition().y > WindowHeight || FrogObject->FrogSprite.getPosition().y < 0)
+	{
+		FrogObject->Reset();
+	}
 }
 
 void Game::Draw() {

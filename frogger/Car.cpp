@@ -22,6 +22,7 @@ bool Car::Update(sf::RenderWindow& window, float DeltaTime,Frog* FrogObj) {
 	if (CarSprite.getGlobalBounds().intersects(FrogObj->FrogSprite.getGlobalBounds()))
 	{
 		FrogObj->Reset();
+		FrogObj->CarCollisionSound();
 	}
 
 	if (CarSprite.getPosition().x > window.getSize().x + 3*Game_Cell_Size|| CarSprite.getPosition().x < -3*Game_Cell_Size)

@@ -3,6 +3,7 @@
 #define Car_hpp
 
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include <string>
 
 class Frog;
