@@ -19,6 +19,12 @@ public:
 	void CalculateDeltaTime();
 	void MoveFrog();
 private:
+	sf::Font font;
+	sf::Text Score;
+	sf::Text gameOver;
+
+	sf::Sprite HeartPathSprite[Heart_Number];
+	sf::Texture HeartPathTexture;
 
 	sf::Sprite StreetPathSprite;
 	sf::Texture StreetPathTexture;
