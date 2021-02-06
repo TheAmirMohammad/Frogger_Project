@@ -19,20 +19,20 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Car.hpp" />
-    <ClInclude Include="Frog.hpp" />
-    <ClInclude Include="Game.hpp" />
-    <ClInclude Include="GameDefinitions.hpp" />
-    <ClInclude Include="Log.hpp" />
-    <ClInclude Include="Window.hpp" />
+    <ClInclude Include="..\..\..\..\..\..\Programming Projects\Frogger Testing\frog\Car.hpp" />
+    <ClInclude Include="..\..\..\..\..\..\Programming Projects\Frogger Testing\frog\Frog.hpp" />
+    <ClInclude Include="..\..\..\..\..\..\Programming Projects\Frogger Testing\frog\Game.hpp" />
+    <ClInclude Include="..\..\..\..\..\..\Programming Projects\Frogger Testing\frog\GameDefinitions.hpp" />
+    <ClInclude Include="..\..\..\..\..\..\Programming Projects\Frogger Testing\frog\Log.hpp" />
+    <ClInclude Include="..\..\..\..\..\..\Programming Projects\Frogger Testing\frog\Window.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Car.cpp" />
-    <ClCompile Include="Frog.cpp" />
-    <ClCompile Include="Game.cpp" />
-    <ClCompile Include="Log.cpp" />
-    <ClCompile Include="Main.cpp" />
-    <ClCompile Include="Window.cpp" />
+    <ClCompile Include="..\..\..\..\..\..\Programming Projects\Frogger Testing\frog\Car.cpp" />
+    <ClCompile Include="..\..\..\..\..\..\Programming Projects\Frogger Testing\frog\Frog.cpp" />
+    <ClCompile Include="..\..\..\..\..\..\Programming Projects\Frogger Testing\frog\Game.cpp" />
+    <ClCompile Include="..\..\..\..\..\..\Programming Projects\Frogger Testing\frog\Log.cpp" />
+    <ClCompile Include="..\..\..\..\..\..\Programming Projects\Frogger Testing\frog\Main.cpp" />
+    <ClCompile Include="..\..\..\..\..\..\Programming Projects\Frogger Testing\frog\Window.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

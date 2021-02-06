@@ -16,7 +16,6 @@ namespace sf
 
 class Frog : public sf::Drawable, public sf::Transformable {
 public:
-
 	Frog(std::string path, sf::Vector2f position);
 	int getLane();
 	bool isMoving();
@@ -25,8 +24,10 @@ public:
 	bool logcollision(std::vector<Log*>& logsetvector);
 	void CarCollisionSound();
 	void Reset();
-
+	void Reset_Frog();
 private:
+	int heart_count;
+
 	sf::Sprite FrogSprite;
 	sf::Texture FrogTexture;
 	sf::Vector2f FrogPrimaryPosition;

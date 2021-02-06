@@ -1,13 +1,37 @@
 #include "Game.hpp"
+#include <string>
+#include <chrono>
+#include <thread>
+
+using namespace std::chrono_literals;
 
 sf::RectangleShape water;
+int score = 0;
+bool over = false;
 
 Game::Game():GameWindow(Width_Game_Window, Height_Game_Window, Title_Game_Window) {
-
 	srand(time(NULL));
+	
+	if (!font.loadFromFile(FontPath))
+	{
+		std::cout << "ERROR Reglisse.otf NOT FOUND!" << std::endl;
+	}
+	Score.setFont(font);
+	Score.setCharacterSize(40);
+	Score.setFillColor(sf::Color::White);
+	Score.setString("Score " + std::to_string(score));
+	Score.setOrigin(Score.getGlobalBounds().width , Score.getGlobalBounds().height);
+	Score.setPosition(Width_Game_Window - Game_Cell_Size, 30);
+
+	gameOver.setFont(font);
+	gameOver.setCharacterSize(150);
+	gameOver.setFillColor(sf::Color::White);
+	gameOver.setOrigin(gameOver.getGlobalBounds().width/2, gameOver.getGlobalBounds().height/2);
+	gameOver.setPosition(50, 200);
+	
 	sf::Color waterColor =sf::Color::Color(0 , 134 , 163);
 	water.setSize(sf::Vector2f(Width_Game_Window, 5.5 * Game_Cell_Size));
-	water.setPosition(0, 0);
+	water.setPosition(0, Game_Cell_Size);
 	water.setFillColor(waterColor);
 
 	StreetPathTexture.loadFromFile(StreetBackground_File_Path);
@@ -24,7 +48,7 @@ Game::Game():GameWindow(Width_Game_Window, Height_Game_Window, Title_Game_Window
 
 	TopPathTexture.loadFromFile(TopPathBackground_File_Path);
 	TopPathSprite.setTexture(TopPathTexture);
-	TopPathSprite.setPosition(WindowWidth / 2, 0);
+	TopPathSprite.setPosition(WindowWidth / 2, Game_Cell_Size);
 
 	WindowWidth = GameWindow.WindowSizeX();
 	WindowHeight = GameWindow.WindowSizeY();
@@ -54,6 +78,13 @@ Game::Game():GameWindow(Width_Game_Window, Height_Game_Window, Title_Game_Window
 	CarsLaneNameSet[2] = Car_Lane_3_CarFilePath;
 	CarsLaneNameSet[3] = Car_Lane_4_CarFilePath;
 	CarsLaneNameSet[4] = Car_Lane_5_CarFilePath;
+
+	HeartPathTexture.loadFromFile(Heart_FilePath);
+	for (int i = 0; i < FrogObject->heart_count; i++)
+	{
+		HeartPathSprite[i].setTexture(HeartPathTexture);
+		HeartPathSprite[i].setPosition(i*(Game_Cell_Size-10), 0);
+	}
 
 	for (int i = 0; i < Log_Lanes_Number; i++)
 	{
@@ -114,26 +145,62 @@ void Game::Update() {
 			CarsSet.erase(CarsSet.begin() + i);
 		}
 	}
-	if (FrogObject->getLane() >= 1 && FrogObject->getLane() <= 4)
+	if (FrogObject->getLane() == 1)
+	{
+		if (FrogObject->FrogSprite.getPosition().x >= 35 && FrogObject->FrogSprite.getPosition().x <= 152)
+		{
+			score++;
+			Score.setString("Score " + std::to_string(score));
+			FrogObject->Reset_Frog();
+		}
+		if (FrogObject->FrogSprite.getPosition().x >= 323 && FrogObject->FrogSprite.getPosition().x <= 444)
+		{
+			score++;
+			Score.setString("Score " + std::to_string(score));
+			FrogObject->Reset_Frog();
+		}
+		if (FrogObject->FrogSprite.getPosition().x >= 615 && FrogObject->FrogSprite.getPosition().x <= 735)
+		{
+			score++;
+			Score.setString("Score " + std::to_string(score));
+			FrogObject->Reset_Frog();
+		}
+		else
+		{
+			FrogObject->Reset();
+		}
+	}
+	if (FrogObject->getLane() >= 2 && FrogObject->getLane() <= 5)
 	{
 		if (FrogObject->logcollision(LogsSet) == false)
 		{
 			FrogObject->Reset();
 		}
 	}
-	if (FrogObject->FrogSprite.getPosition().x > WindowWidth || FrogObject->FrogSprite.getPosition().x < 0 || FrogObject->FrogSprite.getPosition().y > WindowHeight || FrogObject->FrogSprite.getPosition().y < 0)
+	if (FrogObject->FrogSprite.getPosition().x > WindowWidth || FrogObject->FrogSprite.getPosition().x < 0 || FrogObject->FrogSprite.getPosition().y > WindowHeight || FrogObject->FrogSprite.getPosition().y < Game_Cell_Size)
 	{
 		FrogObject->Reset();
+	}
+	if (FrogObject->heart_count == 0)
+	{
+		over = true;
 	}
 }
 
 void Game::Draw() {
 	GameWindow.BeginDraw();
+	GameWindow.Draw(Score);
 	GameWindow.Draw(water);
 	GameWindow.Draw(StreetPathSprite);
 	GameWindow.Draw(FootPathSprite);
 	GameWindow.Draw(MiddlePathSprite);
 	GameWindow.Draw(TopPathSprite);
+
+	for (int i = 0; i < FrogObject->heart_count; i++)
+	{
+		GameWindow.Draw(HeartPathSprite[i]);
+	}
+
 	for (int i = 0; i < LogsSet.size(); i++)
 	{
 		GameWindow.Draw(*LogsSet[i]);
@@ -141,6 +208,11 @@ void Game::Draw() {
 	for (int i = 0; i < CarsSet.size() ; i++)
 	{
 		GameWindow.Draw(*CarsSet[i]);
+	}
+	if (over)
+	{
+		gameOver.setString("Game Over!\nScore : " + std::to_string(score));
+		GameWindow.Draw(gameOver);
 	}
 	GameWindow.Draw(*FrogObject);
 	GameWindow.EndDraw();

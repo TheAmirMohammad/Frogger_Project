@@ -1,6 +1,11 @@
 #include "Frog.hpp"
+#include "Game.hpp"
 #include <iostream>
+#include <chrono>
+#include <thread>
 #include <SFML/Graphics.hpp>
+
+using namespace std::chrono_literals;
 
 int Frog::getLane()
 {
@@ -27,6 +32,7 @@ bool Frog::isMoving()
 
 Frog::Frog(std::string path, sf::Vector2f position)
 {
+	heart_count = Heart_Number;
 	if (!FrogTexture.loadFromFile(path))
 	{
 		std::cout << path << " don't exsist" << '\n';
@@ -61,45 +67,6 @@ Frog::Frog(std::string path, sf::Vector2f position)
 	SquashSound.setLoop(false);
 }
 
-void Frog::HandleFrogMovement(sf::RenderWindow& GameWindow)
-{
-	sf::Event EventListener;
-	while (GameWindow.pollEvent(EventListener))
-	{
-		switch (EventListener.type)
-		{
-			case sf::Event::KeyReleased:
-			switch (EventListener.key.code)
-			{
-			case sf::Keyboard::Up:
-				FrogSprite.move(0, -FrogSprite.getGlobalBounds().height);
-				FrogSprite.setRotation(0);
-				HopSound.play();
-				break;
-			case sf::Keyboard::Down:
-				FrogSprite.move(0, FrogSprite.getGlobalBounds().height);
-				FrogSprite.setRotation(180);
-				HopSound.play();
-				break;
-			case sf::Keyboard::Left:
-				FrogSprite.move(-FrogSprite.getLocalBounds().width, 0);
-				FrogSprite.setRotation(270);
-				HopSound.play();
-				break;
-			case sf::Keyboard::Right:
-				FrogSprite.move(FrogSprite.getGlobalBounds().height, 0);
-				FrogSprite.setRotation(90);
-				HopSound.play();
-				break;
-			default:
-				break;
-			}
-		default:
-			break;
-		}
-	}
-}
-
 bool Frog::logcollision(std::vector<Log*>& logsetvector) {
 	bool collision = false;
 	for (int i = 0; i < logsetvector.size(); i++)
@@ -124,6 +91,13 @@ void Frog::DrawFrog(sf::RenderWindow& window)
 
 void Frog::Reset()
 {
+	heart_count--;
+	FrogSprite.setRotation(0);
+	FrogSprite.setPosition(FrogPrimaryPosition);
+}
+
+void Frog::Reset_Frog()
+{
 	FrogSprite.setRotation(0);
 	FrogSprite.setPosition(FrogPrimaryPosition);
 }
@@ -136,3 +110,52 @@ void Frog::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	target.draw(FrogSprite,states);
 }
+
+void Frog::HandleFrogMovement(sf::RenderWindow& GameWindow)
+{
+	if (heart_count == 0)
+	{
+		std::this_thread::sleep_for(4000ms);
+		GameWindow.close();
+	}
+	sf::Event EventListener;
+	while (GameWindow.pollEvent(EventListener))
+	{
+		switch (EventListener.type)
+		{
+		case sf::Event::KeyReleased:
+			switch (EventListener.key.code)
+			{
+			case sf::Keyboard::Space:
+				std::cout << FrogSprite.getPosition().x << std::endl;
+				break;
+			case sf::Keyboard::Up:
+				FrogSprite.move(0, -FrogSprite.getGlobalBounds().height);
+				FrogSprite.setRotation(0);
+				HopSound.play();
+				break;
+			case sf::Keyboard::Down:
+				FrogSprite.move(0, FrogSprite.getGlobalBounds().height);
+				FrogSprite.setRotation(180);
+				HopSound.play();
+				break;
+			case sf::Keyboard::Left:
+				FrogSprite.move(-FrogSprite.getLocalBounds().width, 0);
+				FrogSprite.setRotation(270);
+				HopSound.play();
+				break;
+			case sf::Keyboard::Right:
+				FrogSprite.move(FrogSprite.getGlobalBounds().height, 0);
+				FrogSprite.setRotation(90);
+				HopSound.play();
+				break;
+			default:
+				break;
+			}
+
+		default:
+			break;
+		}
+	}
+}
+

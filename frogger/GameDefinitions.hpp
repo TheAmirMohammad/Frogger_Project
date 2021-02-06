@@ -4,8 +4,10 @@
 
 #define Title_Game_Window "Frogger"
 #define Width_Game_Window 780
-#define Height_Game_Window 720
+#define Height_Game_Window 780
 #define Game_Cell_Size 60
+
+#define FontPath "GameAssets/reglisse/Reglisse.otf"
 
 #define Frog_File_Path "GameAssets/Frog.png"
 
@@ -18,6 +20,10 @@
 #define HopSound_File_Path "GameAssets/sound-frogger-hop.ogg"
 #define PlunkSound_File_Path "GameAssets/sound-frogger-plunk.ogg"
 #define SquashkSound_File_Path "GameAssets/sound-frogger-squash.ogg"
+
+#define Heart_Number 5
+
+#define Heart_FilePath "GameAssets/Heart.png"
 
 #define Log_Lanes_Number 4
 #define Log_Lane_LogsNumber 3
