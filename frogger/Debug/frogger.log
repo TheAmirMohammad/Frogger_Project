@@ -1,18 +1,4 @@
-﻿  Car.cpp
-E:\Programming Projects\Frogger Testing\frog\Car.cpp(58): warning C4244: 'return': conversion from 'int' to 'float', possible loss of data
-E:\Programming Projects\Frogger Testing\frog\Car.cpp(71): warning C4244: 'return': conversion from 'T' to 'int', possible loss of data
-          with
-          [
-              T=float
-          ]
-  Frog.cpp
-E:\Programming Projects\Frogger Testing\frog\Frog.cpp(12): warning C4244: 'return': conversion from 'T' to 'int', possible loss of data
-          with
-          [
-              T=float
-          ]
-E:\Programming Projects\Frogger Testing\frog\Frog.cpp(72): warning C4018: '<': signed/unsigned mismatch
-  Game.cpp
+﻿  Game.cpp
 E:\Programming Projects\Frogger Testing\frog\Game.cpp(13): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
 E:\Programming Projects\Frogger Testing\frog\Game.cpp(86): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
 E:\Programming Projects\Frogger Testing\frog\Game.cpp(91): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
@@ -41,26 +27,6 @@ E:\Programming Projects\Frogger Testing\frog\Game.cpp(139): warning C4244: 'argu
           [
               T=float
           ]
-E:\Programming Projects\Frogger Testing\frog\Game.cpp(204): warning C4018: '<': signed/unsigned mismatch
-E:\Programming Projects\Frogger Testing\frog\Game.cpp(208): warning C4018: '<': signed/unsigned mismatch
-  Log.cpp
-E:\Programming Projects\Frogger Testing\frog\Log.cpp(73): warning C4244: 'return': conversion from 'int' to 'float', possible loss of data
-E:\Programming Projects\Frogger Testing\frog\Log.cpp(86): warning C4244: 'return': conversion from 'T' to 'int', possible loss of data
-          with
-          [
-              T=float
-          ]
-  Main.cpp
-  Window.cpp
-E:\Programming Projects\Frogger Testing\frog\Window.cpp(41): warning C4244: 'return': conversion from 'T' to 'float', possible loss of data
-          with
-          [
-              T=unsigned int
-          ]
-E:\Programming Projects\Frogger Testing\frog\Window.cpp(45): warning C4244: 'return': conversion from 'T' to 'float', possible loss of data
-          with
-          [
-              T=unsigned int
-          ]
-  Generating Code...
+E:\Programming Projects\Frogger Testing\frog\Game.cpp(202): warning C4018: '<': signed/unsigned mismatch
+E:\Programming Projects\Frogger Testing\frog\Game.cpp(206): warning C4018: '<': signed/unsigned mismatch
   frogger.vcxproj -> E:\University\Term 3\Programming\Game Project\Frogger_Game\frogger\Debug\frogger.exe
