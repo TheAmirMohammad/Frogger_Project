@@ -152,14 +152,12 @@ void Game::Update() {
 			score++;
 			Score.setString("Score " + std::to_string(score));
 			FrogObject->Reset_Frog();
-		}
-		if (FrogObject->FrogSprite.getPosition().x >= 323 && FrogObject->FrogSprite.getPosition().x <= 444)
+		} else if (FrogObject->FrogSprite.getPosition().x >= 323 && FrogObject->FrogSprite.getPosition().x <= 444)
 		{
 			score++;
 			Score.setString("Score " + std::to_string(score));
 			FrogObject->Reset_Frog();
-		}
-		if (FrogObject->FrogSprite.getPosition().x >= 615 && FrogObject->FrogSprite.getPosition().x <= 735)
+		} else if (FrogObject->FrogSprite.getPosition().x >= 615 && FrogObject->FrogSprite.getPosition().x <= 735)
 		{
 			score++;
 			Score.setString("Score " + std::to_string(score));
